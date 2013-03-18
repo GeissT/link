@@ -9,7 +9,8 @@ class Bootstrap
     private $_defaultController = 'welcome';
     private $_controllerName = null;
     private $_controllerPath = null;
-    private $_controllerClass = null;
+
+    private $_methodName = null;
     
     public function init() {
         $this->getUrl();
@@ -38,7 +39,21 @@ class Bootstrap
     }
 
     private function checkMethods() {
+        if (isset($this->_url[1])) {
+            if (method_exists($this->_controller, $this->_url[1])) {
+                 $this->setMethodName($this->_url[1]);
+                 $this->_controller->{$this->_methodName}();
+            } 
+        } else {
+            $this->_controller->index();
+        }
+    }
 
+    private function setMethodName($name = null) {
+        if (!$name) {
+            return null;
+        }
+        $this->_methodName = $name;
     }
 
     private function throwError() {

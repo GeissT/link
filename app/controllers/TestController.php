@@ -1,7 +1,11 @@
 <?php
 class TestController extends Controller {
-    public function __construct() {
+    public function index() {
         echo 'test controller';
+    }
+
+    public function testFunc() {
+        echo 'derp';
     }
 }
 ?>
