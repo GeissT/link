@@ -9,6 +9,7 @@ class Bootstrap
     private $_defaultController = 'welcome';
     private $_controllerName = null;
     private $_controllerPath = null;
+    private $_controllerClass = null;
     
     public function init() {
         $this->getUrl();
@@ -22,8 +23,26 @@ class Bootstrap
             require $this->_controllerPath;
             $this->initController();
         } else {
-            echo 'It doesn\'t exist';
+            $this->showDefaultController();
+            return;
         }
+
+        $this->checkMethods();
+    }
+
+    private function showDefaultController() {
+        $this->_controllerName = 'HomeController';
+        $this->_controllerPath = APP_PATH . 'controllers/'. $this->_controllerName  .'.php';
+        require $this->_controllerPath;
+        $this->initController();
+    }
+
+    private function checkMethods() {
+
+    }
+
+    private function throwError() {
+        echo 'An error occured...';
     }
 
     private function getUrl() {
@@ -36,7 +55,7 @@ class Bootstrap
         if (!$name) {
             return;
         }
-        $this->_controllerName = $name;
+        $this->_controllerName = ucfirst($name) . 'Controller';
     }
 
     private function setControllerPath() {
