@@ -4,8 +4,8 @@ class TestController extends Controller {
         echo 'test controller';
     }
 
-    public function testFunc() {
-        echo 'derp';
+    public function testFunc($var) {
+        echo 'The VAR equals ' . $var;
     }
 }
 ?>
