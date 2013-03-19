@@ -28,7 +28,7 @@ class Bootstrap
             return;
         }
 
-        $this->checkMethods();
+        $this->checkMethod();
     }
 
     private function showDefaultController() {
@@ -38,7 +38,7 @@ class Bootstrap
         $this->initController();
     }
 
-    private function checkMethods() {
+    private function checkMethod() {
         if (isset($this->_url[1])) {
             if (method_exists($this->_controller, $this->_url[1])) {
                 if(isset($this->_url[2])) {
