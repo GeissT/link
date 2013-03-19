@@ -39,20 +39,18 @@ class Bootstrap
     }
 
     private function checkMethods() {
-        if(isset($this->_url[2])) {
-           if (method_exists($this->_controller, $this->_url[1])) {
-                 $this->setMethodName($this->_url[1]);
-                 $this->_controller->{$this->_methodName}($this->_url[2]);
-           } else {
-               $this->throwError();
-           }
-        } else {
+        if (isset($this->_url[1])) {
             if (method_exists($this->_controller, $this->_url[1])) {
-                 $this->setMethodName($this->_url[1]);
-                 $this->_controller->{$this->_methodName}(null);
+                if(isset($this->_url[2])) {
+                    $this->_controller->{$this->_url[1]}($this->_url[2]);
+                } else {
+                    $this->_controller->{$this->_url[1]}();
+                }
             } else {
-                $this->_controller->index();
+                echo 'Method doesn\'t exist';
             }
+        } else {
+            $this->_controller->index();
         }
     }
 
