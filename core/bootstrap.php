@@ -6,7 +6,6 @@ class Bootstrap
 {
     private $_url = null;
     private $_controller = null;
-    private $_defaultController = 'welcome';
     private $_controllerName = null;
     private $_controllerPath = null;
 
@@ -62,6 +61,7 @@ class Bootstrap
     }
 
     private function throwError() {
+        // I'll make this more usable eventually...
         echo 'An error occured...';
     }
 
