@@ -36,19 +36,30 @@ class Bootstrap
         require $this->_controllerPath;
         $this->initController();
     }
-
+    // New solution coutesy of jream.com
     private function checkMethod() {
-        if (isset($this->_url[1])) {
-            if (method_exists($this->_controller, $this->_url[1])) {
-                if(isset($this->_url[2])) {
-                    $this->_controller->{$this->_url[1]}($this->_url[2]);
-                } else {
-                    $this->_controller->{$this->_url[1]}();
-                }
-            } else {
-                echo 'Method doesn\'t exist';
+        $urlLength = count($this->_url);
+
+        if($urlLength > 1) {
+            if(!method_exists($this->_controller, $this->_url[1])) {
+                $this->throwerror();
+                return;
             }
-        } else {
+        }
+        switch($urlLength) {
+        case 5:
+            $this->_controller->{$this->_url[1]}($this->_url[2], $this->_url[3], $this->_url[4]);
+            break;
+        case 4:
+            $this->_controller->{$this->_url[1]}($this->_url[2], $this->_url[3]);
+            break;
+        case 3:
+            $this->_controller->{$this->_url[1]}($this->_url[2]);
+            break;
+        case 2:
+            $this->_controller->{$this->_url[1]}();
+            break;
+        default:
             $this->_controller->index();
         }
     }
